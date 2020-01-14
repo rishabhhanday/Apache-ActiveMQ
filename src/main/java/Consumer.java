@@ -55,14 +55,14 @@ public class Consumer {
 		/*
 		 * Here we receive the message.
 		 */
-		Message message = consumer.receive();
-
-		if (message instanceof TextMessage)
-		{
+		Message message = null;
+		while((message= (Message)consumer.receive()) !=null) {
 			TextMessage textMessage = (TextMessage) message;
 			System.out.println("Received message '" + textMessage.getText() + "'");
-			message.acknowledge();
+			if(textMessage.getText().equals("r1"))
+				message.acknowledge();
 		}
+		
 		connection.close();
 	}
 }

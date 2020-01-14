@@ -3,6 +3,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
@@ -49,14 +50,18 @@ public class Producer {
 		 * MessageProducer is used for sending messages to the queue.
 		 */
 		MessageProducer producer = session.createProducer(destination);
-		TextMessage message = session.createTextMessage("Hi R2, How are you?");
-
+		TextMessage message1 = session.createTextMessage("r1");
+		TextMessage message2 = session.createTextMessage("r2");
+		//Can also send objects 
+		//ObjectMessage om = session.createObjectMessage(object);
 		/*
 		 * Here we are sending our message!
 		 */
-		producer.send(message);
+		producer.send(message1);
+		producer.send(message2);
 
-		System.out.println("Message '" + message.getText() + ", Sent Successfully to the Queue");
+		System.out.println("Message '" + message1.getText() + ", Sent Successfully to the Queue");
+		System.out.println("Message '" + message2.getText() + ", Sent Successfully to the Queue");
 		connection.close();
 	}
 }
